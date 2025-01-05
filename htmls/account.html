@@ -6,7 +6,7 @@
     <title>账号管理</title>
     <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet">
     <link href="./css/bootstrap-table.min.css" type="text/css" rel="stylesheet">
-    <link href="../images/logo.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href="./images/logo.ico" rel="shortcut icon" type="image/x-icon"/>
     <style>
         table tr th {
             text-align: center;
@@ -38,8 +38,6 @@
             <?php } ?>
             <th>名字</th>
             <th>账号</th>
-            <th>密码</th>
-            <th>描述</th>
             <th style="min-width: 100px; width: 100px;">操作</th>
         </tr>
         </thead>
@@ -56,12 +54,6 @@
             </td>
             <td class="account_<?php echo $v['id']; ?>">
                 <?php echo $v['account']; ?>
-            </td>
-            <td class="pwd_<?php echo $v['id']; ?>">
-                <?php echo $v['password']; ?>
-            </td>
-            <td class="desc_<?php echo $v['id']; ?>">
-                <?php echo $v['desc']; ?>
             </td>
             <td flag="<?php echo $v['id']; ?>">
                 <a title="修改" class="glyphicon glyphicon-pencil change-btn  change_<?php echo $v['id'];?>"
@@ -149,7 +141,7 @@
         eleId.setAttribute('name', id);
         //console.log(id);
         $.post("?act=getAccountById&mod=account", {id: id}, function (res) {
-            console.log("--" + res + "--");
+            //console.log("--" + res + "--");
             if (res == -1 || res == '') {
                 alert('error');
             } else if (res == -2) {
@@ -157,7 +149,7 @@
             } else {
                 var json = $.parseJSON(res);
                 $(".type-select").val(json.type);
-                console.log($(".menu_" + json.type).text());
+                //console.log($(".menu_" + json.type).text());
                 $("input[name='company']").val(json.company);
                 $("input[name='account']").val(json.account);
                 $("input[name='password']").val(json.password);

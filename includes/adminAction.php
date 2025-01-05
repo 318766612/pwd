@@ -24,9 +24,10 @@ class adminAction
         if (empty($_POST['username']) || empty($_POST['password'])) {
             msgBox(-1, "请输入正确的用户名和密码！");
         } else {
+            $pwd=AESUtil::getInstance()->Encry($_POST['password']);
             $whereStr = "name='" . $_POST['username'] . "'";
             $info = $this->db->fetch('admin', $whereStr);
-            if ($info['password'] === $_POST['password']) {
+            if ($info['password'] === $pwd) {
                 $_SESSION['uid'] = $info['id'];
                 $_SESSION['username'] = $info['name'];
                 $_SESSION['password'] = $info['password'];
@@ -72,7 +73,9 @@ class adminAction
         }
         $arr = array();
         $arr['name'] = $_POST['username'];
-        $arr['password'] = $_POST['password'];
+        $pwd=AESUtil::getInstance()->Encry($_POST['password']);
+        echo $pwd;
+        $arr['password'] = $pwd;
         if ($this->db->insert('admin', $arr)) {
             msgBox(1, '注册成功，请登录！', '?act=index&mod=admin');
         } else {

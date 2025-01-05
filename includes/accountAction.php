@@ -47,8 +47,9 @@ class accountAction
         $arr = array();
         $arr['company'] = $post['company'];
         $arr['account'] = $post['account'];
-        $arr['password'] = $post['password'];
-        $arr['desc'] = $post['desc'] ? $post['desc'] : '';
+        $arr['password'] = AESUtil::getInstance()->Encry($post['password']);
+        //$arr['desc'] = $desc ? $desc : '';
+        $arr['desc'] = $post['desc'] ? AESUtil::getInstance()->Encry($post['desc']) : '';
         $arr['type'] = addslashes($post['type']);
         $arr['uid'] = $_SESSION['uid'];
 
@@ -111,8 +112,9 @@ class accountAction
         $arr['type'] = $post['type'];
         $arr['company'] = $post['company'];
         $arr['account'] = $post['account'];
-        $arr['password'] = $post['password'];
-        $arr['desc'] = $post['desc'];
+
+        $arr['password'] = AESUtil::getInstance()->Encry($post['password']);
+        $arr['desc'] = $post['desc'] ? AESUtil::getInstance()->Encry($post['desc']) : '';
 
         if ($this->db->update('account', $arr, 'id=' . $id)) {
             echo 1;
@@ -131,6 +133,10 @@ class accountAction
         }
         $whereStr = " company like '%" . $_GET['search'] . "%' ";
         $accounts = $this->db->fetchAll('account', $whereStr);
+
+        if (!$accounts) {
+            msgBox(1, '暂无数据!', '?act=index&mod=account');
+        }
         require './htmls/account.html';
     }
 
@@ -163,13 +169,14 @@ class accountAction
         $arr['type'] = $row['type'];
         $arr['company'] = $row['company'];
         $arr['account'] = $row['account'];
-        $arr['password'] = $row['password'];
+
+        $arr['password'] = AESUtil::getInstance()->Decry($row['password']);
         if (!empty($row['desc']))
-            $arr['desc'] = $row['desc'];
+            $arr['desc'] = AESUtil::getInstance()->Decry($row['desc']);
         else
             $arr['desc'] = "";
         echo json_encode($arr);
-        //return json_encode($arr);
+        return json_encode($arr);
     }
 
     public function clearData($arr)

@@ -28,7 +28,7 @@ CREATE TABLE `account`  (
   `account` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `desc` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0：其他；1：生活；2：工作；3：娱乐',
+  `type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0：其他；1：个人；2：娱乐；3：社交 4：理财 5：学习',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `id`(`uid`) USING BTREE,
   INDEX `cp`(`company`) USING BTREE

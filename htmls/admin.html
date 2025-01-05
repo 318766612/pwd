@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link href="../images/logo.ico" rel="shortcut icon"/>
+    <link href="./images/logo.ico" rel="icon" type="image/x-icon" />
     <title>账号管理</title>
     <style>
         #content {
@@ -122,10 +122,10 @@
                     <span class="input-group-addon">类型</span>
                     <select class="form-control" name="type">
                         <?php foreach(SystemConfig::$types as $k => $v){ ?>
-                        <a href="?act=disAccount&mod=account&type=<?php echo $k; ?>" class="list-group-item"
-                           target="j_frame">
+<!--                        <a href="?act=disAccount&mod=account&type=<?php echo $k; ?>" class="list-group-item"-->
+<!--                           target="j_frame" >-->
                             <option value="<?php echo $k; ?>"><?php echo $v; ?></option>
-                        </a>
+<!--                        </a>-->
                         <?php } ?>
                     </select>
                 </div>

@@ -39,7 +39,7 @@ class AESUtil
 
     public function Decry($ciphertext)
     {
-        $iv = base64_decode(iv64);
+        $iv = base64_decode($this->iv64);
         return openssl_decrypt($ciphertext, 'aes-256-cbc', $this->key, 0, $iv);
     }
 
