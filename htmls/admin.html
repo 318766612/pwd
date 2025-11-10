@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="./images/logo.ico" rel="icon" type="image/x-icon" />
+    <title>账号管理</title>
+    <style>
+        #content {
+            padding: 0px;
+        }
+
+        #main_content {
+            height: 100%;
+        }
+
+        #main_left {
+            padding-top: 20px;
+        }
+
+        .j_iframe {
+            width: 100%;
+            border: none;
+        }
+
+        #top .top_box {
+            height: 100%;
+            padding: 0px;
+        }
+
+        #top .top_box nav {
+            height: 100%;
+            margin: 0px;
+        }
+
+        #top .navbar-right {
+            height: 100%;
+        }
+
+        #main_right {
+            padding: 20px;
+            height: 100%;
+        }
+
+        .modal-content .input-group {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="content" class="col-md-12">
+    <div id="top">
+        <div class="top_box col-md-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> <span
+                            class="icon-bar"></span> <span class="icon-bar"></span> <span
+                            class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">账号管理</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="?act=main&mod=admin">首页</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">账号 <b class="caret"></b></a>
+                            <ul class="dropdown-menu account-menu">
+                                <li data-toggle="modal" data-target="#myModal"><a href="#">添加账号</a></li>
+                                <li class="divider"></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group navbar-left">
+                            <input id="search-input" name="search" type="text" class="form-control"
+                                   placeholder="查询账号" />
+                        </div>
+                        <button type="button" class="btn btn-default search-btn">查询</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="navbar-brand">欢迎<h4
+                                style="margin: 0px 10px;display: inline-block;"><?php echo $_SESSION['username']; ?></h4>
+                        <li><a href="?act=logout&mod=admin" style="font-size: larger" class="text-warning">退出</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+        </div>
+    </div>
+
+    <div id="main_content" class="col-md-12">
+        <div id="main_left" class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+            <div class="list-group left_menu">
+                <?php foreach(SystemConfig::$types as $k => $v){ ?>
+                <a href="?act=disAccount&mod=account&type=<?php echo $k; ?>" flag="<?php echo $k; ?>"
+                   class="list-group-item menu_<?php echo $k; ?>" target="j_frame">
+                    <?php echo $v; ?><span class="badge"><?php echo $nums[$k]; ?></span>
+                </a>
+                <?php } ?>
+            </div>
+        </div>
+        <div id="main_right" class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+            <iframe class="j_iframe" name="j_frame" src="?act=index&mod=account" style="height: 100%;"></iframe>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加账号</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <span class="input-group-addon">类型</span>
+                    <select class="form-control" name="type">
+                        <?php foreach(SystemConfig::$types as $k => $v){ ?>
+<!--                        <a href="?act=disAccount&mod=account&type=<?php echo $k; ?>" class="list-group-item"-->
+<!--                           target="j_frame" >-->
+                            <option value="<?php echo $k; ?>"><?php echo $v; ?></option>
+<!--                        </a>-->
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">名字</span>
+                    <input type="text" class="form-control" name="company" placeholder="请输入账号名">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">账号</span>
+                    <input type="text" class="form-control" name="account" placeholder="请输入账号">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">密码</span>
+                    <input type="text" class="form-control" name="password" placeholder="请输入密码">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">描述</span>
+                    <textarea name="desc" class="form-control" style="height: 100px;"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default close-btn" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary save-btn">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.js"></script>
+<script>
+    $(function () {
+        var h = $(window).height();
+        //根据窗口变化自动设置iframe的高度
+        $("#main_content").css("height", h - 105);
+        $(window).resize(function () {
+            var hh = $(window).height();
+            $("#main_content").css("height", hh - 105);
+        });
+        //搜索框回车触发搜索
+        $('#search-input').keydown(function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                $('.search-btn').click();
+            }
+        });
+        //根据点击事件，给左侧menu加active效果
+        $(".left_menu .list-group-item").click(function () {
+            $(".left_menu .list-group-item").removeClass("active");
+            $(this).addClass("active");
+        });
+        //点击触发弹出框
+        $(".account-menu li").click(function () {
+            $(this).popover('show');
+        });
+        //保存提交按钮
+        $(".save-btn").click(function () {
+            var type = $("select[name='type']").val();
+            var company = $("input[name='company']").val();
+            var account = $("input[name='account']").val();
+            var pwd = $("input[name='password']").val();
+            var desc = $("textarea[name='desc']").val();
+            $.post("?act=addAccount&mod=account", {
+                type: type,
+                company: company,
+                account: account,
+                password: pwd,
+                desc: desc
+            }, function (res) {
+                console.log(res);
+                if (res == 1) {
+                    alert('添加成功');
+                    location.reload(true);
+                } else if (res == 0) {
+                    alert('该账号已存在！');
+                } else if (res == -2) {
+                    alert('参数有空');
+                } else {
+                    alert('添加失败');
+                }
+                $(".close-btn").click();
+            });
+        });
+        $(".search-btn").click(function () {
+            var search = $('#search-input').val();
+            if (search != null) {
+                $(".left_menu .list-group-item").removeClass("active");
+                j_frame.location.href = "?act=searchAccount&mod=account&search=" + search;
+            } else {
+                alert('暂无数据');
+            }
+        });
+    })
+</script>
+</body>
+</html>
