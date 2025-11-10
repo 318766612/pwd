@@ -16,7 +16,7 @@ AES_KEY：用于AES加密和解密的密钥，对于AES-256，密钥必须为32�
 
 
 # 登录
-![img_1.png](show/login.png)
+![登录界面](show/login.png)
 
 # 账号界面
-![img.png](show/pwd.png)
+![账号管理界面](show/pwd.png)
